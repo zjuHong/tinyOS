@@ -3,7 +3,8 @@
 #include "sys.h"
 #include "usart.h"	
 #include "myOS.h"
-
+#include "mmc_sd.h"			   
+#include "File.h"
 //START 任务
 //设置任务优先级
 #define START_TASK_PRIO      			10 //开始任务的优先级设置为最低
@@ -49,6 +50,8 @@ int main(void)
 	NVIC_Configuration(); 	 //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 	uart_init(115200);
 	LED_Init();		  	 //初始化与LED连接的硬件接口
+	SD_SPI_Init();
+	initFileSystem();
 	Task_Init();
 	OS_Init();
 	return 0;
