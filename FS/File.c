@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define NUMREADER 5
-
+extern u8 sd_buff;
 dirTable* rootDirTable; //根目录
 dirTable* currentDirTable;  //当前位置
 char path[200]; //保存当前绝对路径
@@ -445,14 +445,14 @@ int my_write(char fileName[], char content[])
     {
         *(data+myFCB->dataSize) = content[i];
     }
+	//硬件写入
+	SD_WriteDisk(&sd_buff, myFCB->blockNum, 0);
     /* 模拟编辑器,控制写者不立即退出 */
     printf("input a character to end up waiting....\n");
     getchar();
     /* 释放写者锁 */
     return 0;
 }
-
-
 
 //从目录中查找目录项目
 int findUnitInTable(dirTable* myDirTable, char unitName[])

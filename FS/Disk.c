@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 char* systemStartAddr;  //系统起始地址
-
+extern u8 sd_buff;
 //初始化系统
 void initFileSystem()
 {
@@ -54,9 +54,11 @@ int getBlock(int blockSize)
     return -1;
 }
 //获得盘块的物理地址
-char* getBlockAddr(int blockNum)
+u8* getBlockAddr(int blockNum)
 {
-    return systemStartAddr + blockNum * block_szie; //偏移量单位为字节
+	SD_ReadDisk(&sd_buff, blockNum, 0);
+	return &sd_buff;
+//    return systemStartAddr + blockNum * block_szie; //偏移量单位为字节
 }
 //获得物理地址的盘块号
 int getAddrBlock(char* addr)
