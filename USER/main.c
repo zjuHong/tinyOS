@@ -25,7 +25,6 @@ unsigned int LED1_TASK_STK[LED1_STK_SIZE];
 //任务函数接口
 void led1_task(void);
 
-
 //LED2任务
 //设置任务优先级
 #define LED2_TASK_PRIO       			6 
@@ -35,6 +34,8 @@ void led1_task(void);
 unsigned int LED2_TASK_STK[LED2_STK_SIZE];
 //任务函数接口
 void led2_task(void);
+//SD内存
+u8 sd_buff[1024] = { 0 }; 
 
 void Task_Init(void)
 {
@@ -50,7 +51,7 @@ int main(void)
 	NVIC_Configuration(); 	 //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 	uart_init(115200);
 	LED_Init();		  	 //初始化与LED连接的硬件接口
-	SD_SPI_Init();
+	SD_Initialize();
 	initFileSystem();
 	Task_Init();
 	OS_Init();
