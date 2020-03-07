@@ -56,6 +56,7 @@ int getBlock(int blockSize)
 //获得盘块的物理地址
 u8* getBlockAddr(int blockNum)
 {
+	//将SD卡盘块内容存到buff里，返回buff地址
 	SD_ReadDisk(&sd_buff, blockNum, 0);
 	return &sd_buff;
 //    return systemStartAddr + blockNum * block_szie; //偏移量单位为字节

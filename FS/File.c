@@ -445,7 +445,7 @@ int my_write(char fileName[], char content[])
     {
         *(data+myFCB->dataSize) = content[i];
     }
-	//硬件写入
+	//把buff中的内容写入SD卡中
 	SD_WriteDisk(&sd_buff, myFCB->blockNum, 0);
     /* 模拟编辑器,控制写者不立即退出 */
     printf("input a character to end up waiting....\n");
